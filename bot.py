@@ -13,9 +13,11 @@ logger = logging.getLogger(__name__)
 # Функция конфигурирования и запуска бота
 async def main():
     # Конфигурируем логирование
-    logging.basicConfig(level=logging.INFO,
-                        format=u'%(filename)s:%(lineno)d #%(levelname)-8s '
-                               u'[%(asctime)s] - %(name)s - %(message)s')
+    logging.basicConfig(
+        level=logging.INFO,
+        format=u'%(filename)s:%(lineno)d #%(levelname)-8s '
+               u'[%(asctime)s] - %(name)s - %(message)s')
+
     # Выводим в консоль информацию о начале запуска бота
     logger.info('Starting bot')
 
@@ -23,7 +25,8 @@ async def main():
     config: Config = load_config()
 
     # Инициализируем бот и диспетчер
-    bot: Bot = Bot(token=config.tg_bot.token, parse_mode='HTML')
+    bot: Bot = Bot(token=config.tg_bot.token,
+                   parse_mode='HTML')
     dp: Dispatcher = Dispatcher()
 
     # Настраиваем главное меню бота
@@ -40,6 +43,9 @@ async def main():
 
 if __name__ == '__main__':
     try:
+        # Запускаем функцию main
         asyncio.run(main())
     except (KeyboardInterrupt, SystemExit):
-        logger.error('Bot stopped')
+        # Выводим в консоль сообщение об ошибке,
+        # если получены исключения KeyboardInterrupt или SystemExit
+        logger.error('Bot stopped!')
